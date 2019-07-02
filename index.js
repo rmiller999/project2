@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const axios = require('axios'); 
 const ejsLayouts = require('express-ejs-layouts');
 // Module allows use of sessions
 const session = require('express-session');
@@ -9,6 +10,7 @@ const passport = require('./config/passportConfig');
 const flash = require('connect-flash');
 const isLoggedIn = require('./middleware/isLoggedIn');
 const helmet = require('helmet');
+const async = require('async');
 
 // This is only used by the session store
 const db = require('./models');
@@ -22,6 +24,11 @@ const sessionStore = new SequelizeStore({
   db: db.sequelize,
   experation: 1000 * 60 * 30
 });
+
+const headers = {
+  'Accept': 'application/json',
+  'user-key': process.env.API_KEY
+};
 
 app.set('view engine', 'ejs');
 
@@ -57,8 +64,34 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function(req, res) {
-  res.render('index');
+  // Use request to call the API
+  axios.get('https://api-v3.igdb.com/games/', {headers}).then( function(apiResponse) {
+    var games = apiResponse.data;
+    let gamesRequests = games.map(function(game) {
+      return function(cb) {
+        axios.get('https://api-v3.igdb.com/games/' + game.id + "?fields=*", {headers}).then(function(results) {
+          let gameData = results.data;
+          cb(null, gameData)
+        })
+      }
+    })
+
+    async.parallel(gamesRequests, function(err, results) {
+      //res.json(results);
+    })
+    //res.json({games});
+    res.render('index', { games });
+  });
 });
+
+app.get('/games', function(req, res) {
+  axios.get('https://api-v3.igdb.com/games/?search=' + req.query.game + '&fields=name,url,cover', {headers})
+  .then(function(result) {
+    //res.json(result.data);
+    res.render('game', {games: result.data});
+  });
+});
+
 
 app.get('/profile', isLoggedIn, function(req, res) {
   res.render('profile');

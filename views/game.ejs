@@ -1,0 +1,10 @@
+<a href="/">Back to Search</a>
+
+
+<ul>
+  <% games.forEach( function(game, i) {%>
+    <h2> <%= game.name %>  </h2>
+    <img src="<%= game.cover %>">
+    <h2> <a href="<%= game.url %>">link to game</a>  </h2>
+  <% }); %>
+</ul>
