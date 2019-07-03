@@ -1,2 +1,9 @@
 <h3> <%= game.name %> </h3>
 <h3>Game summary: <%= game.summary %> </h3>
+
+<form method="POST" action="/favorites">
+  <input hidden type="text" name="gameId" value="<%= game.id %>">
+  <input hidden type="text" name="userId" value="<%= currentUser.id %>">
+  <input hidden type="text" name="name" value="<%= game.name %>">
+  <button class="btn btn-primary" type="submit">Add to Favorites</button>
+</form>

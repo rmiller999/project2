@@ -11,6 +11,7 @@ const flash = require('connect-flash');
 const isLoggedIn = require('./middleware/isLoggedIn');
 const helmet = require('helmet');
 const async = require('async');
+const methodOverride = require('method-override');
 
 // This is only used by the session store
 const db = require('./models');
@@ -37,6 +38,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
 app.use(ejsLayouts);
 app.use(helmet());
+app.use(methodOverride('_method'));
+
 
 // Configures express-session middleware
 app.use(session({
@@ -84,6 +87,22 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/favorites', function(req, res) {
+  db.favorite.findAll({
+    where: {
+      userId: req.user.id
+    }
+  }).then(function(favorites) {
+    res.render('favorites', {favorites: favorites});
+  });
+});
+
+app.post('/favorites', function(req, res) {
+  db.favorite.create(req.body).then(function(){
+    res.redirect('/favorites');
+  });
+});
+
 app.get('/games', function(req, res) {
   axios.get('https://api-v3.igdb.com/games/?search=' + req.query.game + '&fields=name,url,cover', {headers})
   .then(function(result) {
@@ -98,8 +117,16 @@ app.get('/games/:id', function(req, res) {
     res.render('details', {game: result.data[0]})
     // res.json(result.data)
   })
-})
+});
 
+app.delete('/:id', function(req, res) {
+  var id = parseInt(req.params.id);
+  db.favorites.destroy({
+    where: {id: id}
+  }).then( function() {
+    res.redirect('/pokemon');
+  });
+});
 
 app.get('/profile', isLoggedIn, function(req, res) {
   res.render('profile');
