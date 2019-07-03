@@ -92,6 +92,14 @@ app.get('/games', function(req, res) {
   });
 });
 
+app.get('/games/:id', function(req, res) {
+  axios.get('https://api-v3.igdb.com/games/' + req.params.id + '?fields=summary', {headers})
+  .then(function(result) {
+    //res.render('details', {games: result.data})
+    res.json(result.data)
+  })
+})
+
 
 app.get('/profile', isLoggedIn, function(req, res) {
   res.render('profile');
