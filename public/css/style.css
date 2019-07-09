@@ -3,3 +3,7 @@ body {
   text-align: center;
   color: lightgreen;
 }
+
+p {
+  font-size: 1.3em;
+}

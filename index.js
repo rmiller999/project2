@@ -112,10 +112,10 @@ app.get('/games', function(req, res) {
 });
 
 app.get('/games/:id', function(req, res) {
-  axios.get('https://api-v3.igdb.com/games/' + req.params.id + '?fields=name,summary', {headers})
+  axios.get('https://api-v3.igdb.com/games/' + req.params.id + '?fields=*', {headers})
   .then(function(result) {
     res.render('details', {game: result.data[0]})
-    // res.json(result.data)
+    //res.json(result.data)
   })
 });
 
