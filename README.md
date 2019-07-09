@@ -1,27 +1,23 @@
-# Express Authentication
+# Project 2
 
-Express authentication template using Passport + flash messages + custom middleware
+This second project is my first foray into building a full-stack application. I have built a Node app, which means that I learned about what it takes to build a functional application from the ground up myself.
 
-## Getting Started
+## Technical Requirements
 
-#### Scaffold w/tests (see `master` branch)
+* Have at least 2 models (more if they make sense) -- ideally a user model and one that represents the main functional idea for your app
+* Include sign up/log in functionality, with hashed passwords & an authorization flow
+* Incorporate at least one API. Examples include Yelp, Tumblr, Facebook, and others on Mashape.
+* Have complete RESTful routes for at least one of your resources with GET, POST, PUT, and DELETE
+* Utilize an ORM to create a database table structure and interact with your relationally-stored data
+Include a readme file that explains how to use your app
+* Have semantically clean HTML, CSS, and back-end code
+Be deployed online and accessible to the public
 
-* Run `npm install` to install dependencies
-  * Use `npm run lint:js` to lint your JS
-  * Use `npm run lint:css` to lint your CSS
-  * Use `npm test` to run tests
-* Setup the databases
-  * Change the database names in `config/config.json` to reflect your project
-  * Run `createdb project_name_development` to create the development database
-  * Run `createdb project_name_test` to create the test database
+## Motivation
+My motivation behind making this app is that I wanted to make something I thought that I would use.
 
-#### Finished version (see `brian-finished` branch)
+## What is it?
+My app is game search database where users can login and search games they either want to play or have played and add them to a favorites list to keep or remove certain games from that list. 
 
-* Run `npm install` to install dependencies
-  * Use `npm run lint:js` to lint your JS
-  * Use `npm run lint:css` to lint your CSS
-  * Use `npm test` to run tests
-* Setup the databases
-  * Run `createdb express_auth_development` to create the development database
-  * Run `createdb express_auth_test` to create the test database
-  * Run `sequelize db:migrate` to run migrations
+## Struggles
+Some struggles that I went through were trying to get my api to work the way I wanted to.  This was difficult because the api was different then any api that I had work with before so accessing certain information was challenging to figure put.

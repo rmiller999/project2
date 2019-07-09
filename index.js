@@ -128,6 +128,16 @@ app.delete('/favorites/:id', function(req, res) {
   });
 });
 
+app.put('/favorites/:id', function(req, res) {
+  db.favorite.update({
+    played: req.body.gamePlayed ? true : false
+  }, {
+    where: {gameId: parseInt(req.params.id)}
+  }).then(function(favorite) {
+    res.redirect('/favorites');
+  })
+})
+
 app.get('/profile', isLoggedIn, function(req, res) {
   res.render('profile');
 });
