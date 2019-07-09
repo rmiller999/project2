@@ -119,12 +119,12 @@ app.get('/games/:id', function(req, res) {
   })
 });
 
-app.delete('/:id', function(req, res) {
+app.delete('/favorites/:id', function(req, res) {
   var id = parseInt(req.params.id);
-  db.favorites.destroy({
-    where: {id: id}
+  db.favorite.destroy({
+    where: {gameId: id}
   }).then( function() {
-    res.redirect('/pokemon');
+    res.redirect('/favorites');
   });
 });
 
