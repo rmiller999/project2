@@ -1,9 +1,15 @@
-<a href="/">Back to Search</a>
+<form method='GET' action="/games">
+  <h2><label for="game">Search for a Game</label></h2>
+  <input type="text" name='game' placeholder="Enter game...">
+  <input id="gameTitle" type="submit" value="Search">
+</form>
 
 
 <ul>
-  <% games.forEach( function(game, i) {%>
-    <h2> <a href="/games/<%= game.id %>"> <%= game.name %>  </h2>
-    <h4> <a href="<%= game.url %>">link to game</a>  </h4>
-  <% }); %>
+  <div class='gamescontainer'>
+    <% games.forEach( function(game, i) {%>
+      <h2> <a href="/games/<%= game.id %>"> <%= game.name %>  </h2>
+      <h4> <a href="<%= game.url %>">link to game</a>  </h4>
+    <% }); %>
+  </div>
 </ul>
