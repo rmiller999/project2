@@ -8,10 +8,10 @@
       <form action="/favorites/<%= game.gameId %>/?_method=PUT" method="POST">
         <label for="gamePlayed">Completed this game?:</label>
         <input type='checkbox' name='gamePlayed' <%= game.played ? "checked" : "" %> >
-        <input type="submit" >
+        <input type="submit" class='button'>
       </form>
       <form action="/favorites/<%= game.gameId %>/?_method=DELETE" method="POST">
-        <input type="submit" value="DELETE">
+        <input type="submit" value="DELETE" class='button'>
       </form>
       
     </div>
